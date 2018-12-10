@@ -1,14 +1,22 @@
 import React from 'react';
+import axios from 'axios';
 
 class Search extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      genres: []
-    };
+    this.state={
+       genreList:[], 
+     selectedGenre: null
+    }
   }
   getGenres() {
     //make an axios request in this component to get the list of genres from your endpoint GET GENRES
+    //---shouldn't we invoke a function from App that handles the axios reuqest instead?? --- 
+    axios.get(':3000/genres').then((genreList)=>this.setState({genres:genreList}));
+    
+  }    
+  componentDidMount(){
+    this.getGenres();
   }
 
   render() {
@@ -21,17 +29,19 @@ class Search extends React.Component {
         {/* How can you tell which option has been selected from here? */}
 
         <select>
-          <option value="theway">The Way</option>
-          <option value="thisway">This Way</option>
-          <option value="thatway">That Way</option>
+          {
+            this.state.genreList.map(genre=> (<option value="theway" onMouseRelease={this.setState({selectedGenre:genre})}>The Way</option>))
+          }
         </select>
         <br/><br/>
 
-        <button>Search</button>
+        <button onClick={this.props.getMovies(this.state.selectedGenre)}>Search</button>
 
       </div>
     );
   }
 }
+
+
 
 export default Search;

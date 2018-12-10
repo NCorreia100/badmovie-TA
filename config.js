@@ -1,7 +1,8 @@
 module.exports = {
   host: 'localhost',
+  port: 3001,
   user: 'root',
-  password: '',
-  database: 'badmovies',
-  API_KEY: '',
+  password: '33vs33xq',
+  database: 'badMovies'
+  
 };
