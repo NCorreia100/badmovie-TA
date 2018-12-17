@@ -43,11 +43,12 @@ module.exports = {
   // and sort them by horrible votes using the search parameters in the API
 
   getGenres: (req, res) => {
-
+    console.log('l;kj ')
     Axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${KEY}&language=en-US`)
 
       .then((genreList) => {
         console.log(genreList);
+        console.log('!')
         res.send(genreList.map(genre => genre.name));
       }).catch((err) => {
         res.sendStatus(404);

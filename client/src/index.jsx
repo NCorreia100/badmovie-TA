@@ -1,10 +1,10 @@
- React=require ('react');
-import ReactDOM from 'react-dom';
-import $ from 'jquery';
+ const React=require ('react');
+const ReactDOM =require('react-dom');
+const $ = require('jquery');
 // import AnyComponent from './components/filename.jsx'
-import Search from './components/Search.jsx'
-import Movies from './components/Movies.jsx'
-import Axios from 'axios';
+const Search  =require('./components/Search.jsx');
+const Movies =require('./components/Movies.jsx');
+const Axios =require('axios');
 
 class App extends React.Component {
   constructor(props) {
@@ -27,22 +27,20 @@ class App extends React.Component {
   getMovies(genre) {
     // make an axios request to your server on the GET SEARCH endpoint
     this.setState({ selectedGenre: genre });
-    return this.setState({
-      movies:Axios.get(':3000/genres')
-      .then((movies)=> movies)
-    });
-    
+     Axios.get('/genres')
+      .then((movies)=> this.setState({'movies':movies}))
+      .catch('error getting data from the server');    
   }
 
   saveMovie(movie) {
     // same as above but do something diff
     this.setState.favorites.push(movie);
-    Axios.post(':3000/save',movie).then(alert('Movie has been saved!'));
+    Axios.post('/save',movie).then(alert('Movie has been saved!'));
   }
 
   deleteMovie(movie) {
     // same as above but do something diff
-    Axios.post(':3000/delete',movie).then(alert('Movie has been deleted from favorites'));
+    Axios.post('/delete',movie).then(alert('Movie has been deleted from favorites'));
   }
 
   swapFavorites() {
@@ -53,7 +51,7 @@ class App extends React.Component {
   }
   componentDidMount(){
     let userData = prompt('Please enter your username','password');
-    Axios.post(':3000/user',userData);
+    Axios.post('/user:3000',userData);
   }
   render () {
   	return (

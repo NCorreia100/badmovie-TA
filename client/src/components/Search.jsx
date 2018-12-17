@@ -12,7 +12,7 @@ class Search extends React.Component {
   getGenres() {
     //make an axios request in this component to get the list of genres from your endpoint GET GENRES
     //---shouldn't we invoke a function from App that handles the axios reuqest instead?? --- 
-    axios.get(':3000/genres').then((genreList)=>this.setState({genres:genreList}));
+    axios.get('/genres:3000').then((genreList)=>this.setState({genres:genreList}));
     
   }    
   componentDidMount(){

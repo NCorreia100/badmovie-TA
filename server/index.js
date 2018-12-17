@@ -6,6 +6,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request')
 var app = express();
+var axios = require('axios');
 
 //Helpers
 var apiHelpers = require('./helpers/apiHelpers.js');
@@ -13,7 +14,7 @@ var apiHelpers = require('./helpers/apiHelpers.js');
 app.use(bodyParser.json());
 // Due to express, when you load the page, it doesn't make a get request to '/', it simply serves up the dist folder
 app.use(express.static(__dirname + '/../client/dist'));
-app.use(axios);
+// app.use(axios);
 
 //OPTION 1: Use regular routes
 app.get('/search', (req, res) => {
@@ -26,6 +27,10 @@ app.get('/search', (req, res) => {
       console.log(err);
       res.sendStatus(500);
     })
+})
+
+app.get('/test', (req, res) => {
+  res.send('tested')
 })
 
 app.get('/favorites', (req, res) => {
@@ -46,16 +51,15 @@ app.get('/favorites', (req, res) => {
 // and sort them by horrible votes using the search parameters in the API
 
 app.get('/genres', function (req, res) {
-  // make an axios request to get the list of official genres
-  router.get('/genres', req)
+  // make an axios request to get the list of official 
 
-    .then(genreList => {
-      res.send(genreList);
-    })
+  router.get('/genres', (req, res => 
+      
+       res.send(genreList))
     .catch((err) => {
-      res.sendStatus(404);
+      res.status(404).send();
       console.log('Can\'t get genres\n', err);
-    });
+    })
 });
 
 
@@ -76,16 +80,16 @@ app.post('/delete', (req, res) => {
 });
 
 app.post('/user', function (req, res) {
-  try{
-  router.post('/user',Object.assign(user, req));
-  res.sendStatus(200);
-  }catch(err){
+  
+  router.post('/user',Object.assign(user, req.body))
+  .then(res.sendStatus(200))
+  .catch(err=>{
     console.log(err);
     res.sendStatus(500).send('cant process username at this time')
-  }  
+  })
 });
 
-app.get('/*', () => res.sendStatus(404));
+// app.get('/*', () => res.sendStatus(404));
 //OPTION 2: Use Express Router
 //IF you decide to go with this option delete OPTION 1 to continue
 //Routes

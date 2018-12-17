@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js",
-    "start": "node client/src/index.jsx"
-    },
+    "server-dev": "nodemon server",
+    "start": "webpack -d --watch && nodemon server && node client/src/index.js"
+  },
   "author": "Peter Park",
   "license": "MIT",
   "devDependencies": {
